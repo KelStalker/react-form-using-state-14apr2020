@@ -15,9 +15,9 @@ ILoginState
     constructor(props: string) {
         super(props)
         this.state = {
-            firstName: "blank",
-            lastName: "blank",
-            passWord: "blank",
+            firstName: "",
+            lastName: "",
+            passWord: "",
         };
     }
 
