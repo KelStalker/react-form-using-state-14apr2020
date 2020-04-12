@@ -1,8 +1,8 @@
 import React from "react";
 
-interface ILoginState {}
+interface ILoginUsingStateProps {}
 
-interface ILoginState {
+interface ILoginUsingStateState {
   firstName: string;
   lastName: string;
   passWord: string;
@@ -34,8 +34,8 @@ export default class LoginUsingState extends React.Component<
     const lastName: HTMLInputElement | null = document.querySelector(
       '[name="last-name"]'
     );
-    const age: HTMLInputElement | null = document.querySelector(
-      '[name="pass-word"]'
+    const passWord: HTMLInputElement | null = document.querySelector(
+      '[name="pass0word"]'
     );
 
     if (firstName === null) firstNameString = "";
@@ -44,50 +44,99 @@ export default class LoginUsingState extends React.Component<
     if (lastName === null) lastNameString = "";
     else lastNameString = lastName.value;
 
-    if (passWord === null) passWordString = passWord.value;
+    if (passWord === null) passWordString = "";
     else passWordString = passWord.value;
 
     this.setState({
       firstName: firstNameString,
       lastName: lastNameString,
       passWord: passWordString,
-      loggedIn: !this.state.loggedInString, // Uses '!' to reverse the boolean
+      loggedIn: !this.state.loggedIn, // Uses '!' to reverse the boolean
     });
   };
+
+  toggleLoggedIn = () => {
+    this.setState({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      passWord: this.state.passWord,
+      loggedIn: !this.state.loggedIn,
+    });
+  };
+
   loggedIn = () => {
     return (
       <div>
         <h2>
-          {this.state.firstNmae} {this.state.lastMane}
+          {this.state.firstName} {this.state.lastName}
         </h2>
-        <p> Your password is: {this.state.passWord}</p>
-        <form onSubmit={this.updateLoginUsingState}></form>
-        <h3>Updated Login Info</h3>
-        <label htmlFor="first-name">First Name:</label>
-        <input
-          type="text"
-          name="first-name"
-          defaultValue={this.state.firstName}
-        />
+        ><p>Your password is: {this.state.passWord} </p>
+        <form onSubmit={this.updateLoginUsingState}>
+          <h3>Update Login Info</h3>
+          <label htmlFor="first-name">First Name</label>
+          <input
+            type="text"
+            name="first-name"
+            defaultValue={this.state.firstName}
+          />
+          <label htmlFor="last-name">Last Name</label>
+          <input
+            type="text"
+            name="last-name"
+            defaultValue={this.state.lastName}
+          />
+          <label htmlFor="pass-word">Pass Word</label>
+          <input
+            type="text"
+            name="pass-word"
+            defaultValue={this.state.passWord}
+          />
 
-        <label htmlFor="last-name">Last Name:</label>
-        <input
-          type="text"
-          name="last-name"
-          defaultValue={this.state.lastName}
-        />
-
-        <label htmlFor="pass-word">Pass Word:</label>
-        <input
-          type="text"
-          name="pass-word"
-          defaultValue={this.state.passWord}
-        />
-         <input type="submit" value="Apply Updates" />
-
+          <button onClick={this.toggleLoggedIn}>
+            You are logged In! (Click to logout)
+          </button>
         </form>
-
       </div>
     );
   };
+
+  notLoggedIn = () => {
+    return (
+      <div>
+        <h2>
+          {this.state.firstName} {this.state.lastName}
+        </h2>
+        ><p>Your password is: {this.state.passWord} </p>
+        <form onSubmit={this.updateLoginUsingState}>
+          <h3>Update Login Info</h3>
+          <label htmlFor="first-name">First Name</label>
+          <input
+            type="text"
+            name="first-name"
+            defaultValue={this.state.firstName}
+          />
+          <label htmlFor="last-name">Last Name</label>
+          <input
+            type="text"
+            name="last-name"
+            defaultValue={this.state.lastName}
+          />
+          <label htmlFor="pass-word">Pass Word</label>
+          <input
+            type="text"
+            name="pass-word"
+            defaultValue= ""
+          />
+        </form>
+          <button onClick={this.toggleLoggedIn}>
+            You Are Logged Out (Click to Login)
+          </button>
+      </div>
+    );
+  };
+  render() {
+    if (this.state.loggedIn) return this.loggedIn();
+    else return this.notLoggedIn();
+
+  }
 }
