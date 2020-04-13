@@ -1,7 +1,7 @@
 import React from 'react';
 // import Login from './components/Login';
 import LoginUsingState from './LoginUsingState';
-import './App.css';
+import '../A'
 
 function App() {
   return (
